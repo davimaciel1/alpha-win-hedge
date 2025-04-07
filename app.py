@@ -7,8 +7,8 @@ from utils import (
     atualizar_dados_mercado
 )
 
-st.set_page_config(page_title="Alpha WIN v4.1 – Painel Inteligente", layout="wide")
-st.title("📊 Painel Alpha WIN – Estratégia Inteligente Davi Maciel")
+st.set_page_config(page_title="Alpha WIN v4.2 – Painel Inteligente", layout="wide")
+st.title("📊 Painel Alpha WIN – Estratégia Inteligente")
 
 with st.sidebar:
     st.header("⚙️ Configurações")

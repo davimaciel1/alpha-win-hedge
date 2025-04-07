@@ -1,1 +1,1 @@
-Painel Alpha WIN v4.1 – Estratégia de Hedge com opções, venda de índice, pózinho, payoff e curva de risco.
+Painel Alpha WIN v4.2 – Hedge com opções reais, cálculo de pózinho com preço correto, textos claros, payoff, risco e atualizações automáticas.

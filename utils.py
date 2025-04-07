@@ -29,30 +29,31 @@ def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, p
             "Cobertura com PUT": f"R$ {cobertura_put:.2f}",
         })
 
-        explicacao += f"🛡️ Compre {qtd_puts} PUTs IBOVP130 a R$ {preco_put} → total R$ {custo_total_put:.2f}\n"
+        explicacao += f"🛡️ Compre {qtd_puts} PUTs IBOVP130 a R$ {preco_put:.2f} → total R$ {custo_total_put:.2f}\n"
         if contratos_win > 0:
-            explicacao += f"📉 Venda {contratos_win} contratos WIN usando ações como garantia\n"
+            explicacao += f"📉 Venda {contratos_win} contrato(s) de WIN usando ações como garantia.\n"
 
         if usar_pozinho:
             preco_pozinho = 0.05
-            qtd_pozinho = int((valor_pozinho * 100) // (preco_pozinho * 100))
-            lucro_pozinho = max(0, 125000 - preco_simulado)
-            retorno_potencial = qtd_pozinho * lucro_pozinho
+            if preco_pozinho > 0.10:
+                resultado["Pózinho"] = "Nenhum viável (acima de R$ 0,10)"
+                explicacao += "❌ Nenhuma opção de pózinho com preço até R$ 0,10 e liquidez disponível.\n"
+            else:
+                qtd_pozinho = int((valor_pozinho * 100) // (preco_pozinho * 100))
+                lucro_pozinho = max(0, 125000 - preco_simulado)
+                retorno_potencial = qtd_pozinho * lucro_pozinho
 
-            resultado.update({
-                "Pózinho": f"{qtd_pozinho}x IBOVP125 a R$ {preco_pozinho:.2f}",
-                "Retorno potencial": f"R$ {retorno_potencial:.2f} (se cair até 125.000)"
-            })
-            explicacao += f"💣 Pózinho: {qtd_pozinho} contratos IBOVP125 (R$ {preco_pozinho:.2f}) → se índice cair até 125k, pode virar R$ {retorno_potencial:.2f}\n"
-        else:
-            resultado["Pózinho"] = "Desativado"
-
+                resultado.update({
+                    "Pózinho": f"{qtd_pozinho}x IBOVP125 a R$ {preco_pozinho:.2f}",
+                    "Retorno potencial": f"R$ {retorno_potencial:.2f} (se cair até 125.000)"
+                })
+                explicacao += f"💣 Pózinho de proteção: {qtd_pozinho} contratos IBOVP125 a R$ {preco_pozinho:.2f}. Se índice cair até 125k, pode virar R$ {retorno_potencial:.2f}\n"
     else:
         resultado.update({
             "CALL sugerida": "IBOVC134",
             "Venda PUT (prêmio)": "IBOVP125"
         })
-        explicacao = "🚀 Alta detectada: você pode comprar CALLs para lucro ou vender PUTs para gerar prêmio extra."
+        explicacao = "🚀 Alta detectada: compre CALLs para lucro ou venda PUTs para gerar prêmio extra."
 
     return pd.DataFrame([resultado]), explicacao
 
