@@ -3,10 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def obter_preco_pozinho_real():
-    return 1.23  # Simulação
+    return 1.23  # Valor simulado acima de R$ 0,10 para acionar a tabela
 
 def listar_pozinhos_baratos():
-    # Simulação de tabela com opções
     dados = {
         "Ticker": ["IBOVP122", "IBOVP123", "IBOVP124", "IBOVP125", "IBOVP126"],
         "Preço": [0.25, 0.32, 0.38, 0.41, 0.45],
@@ -17,12 +16,7 @@ def listar_pozinhos_baratos():
 
 def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, preco_simulado, usar_stop, stop_pct, usar_pozinho, valor_pozinho):
     perda_proj = carteira * (protecao_pct / 100) * ((preco_atual - preco_simulado) / preco_atual)
-
-    resultado = {
-        "Cenário": cenario,
-        "Perda projetada": round(perda_proj, 2),
-    }
-
+    resultado = {"Cenário": cenario, "Perda projetada": round(perda_proj, 2)}
     explicacao = ""
 
     if cenario == "Baixa":
@@ -31,7 +25,6 @@ def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, p
         qtd_puts = int(min(saldo // preco_put, perda_proj // lucro_put)) if lucro_put > 0 else 0
         custo_total_put = qtd_puts * preco_put
         cobertura_put = qtd_puts * lucro_put
-
         pontos_necessarios = perda_proj - cobertura_put
         contratos_win = int(pontos_necessarios // ((preco_atual - preco_simulado) * 0.2)) if pontos_necessarios > 0 else 0
 
@@ -55,7 +48,6 @@ def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, p
                 qtd_pozinho = int((valor_pozinho * 100) // (preco_pozinho_real * 100))
                 lucro_pozinho = max(0, 125000 - preco_simulado)
                 retorno_potencial = qtd_pozinho * lucro_pozinho
-
                 resultado.update({
                     "Pózinho": f"{qtd_pozinho}x IBOVP125 a R$ {preco_pozinho_real:.2f}",
                     "Retorno potencial": f"R$ {retorno_potencial:.2f} (se cair até 125.000)"
@@ -91,7 +83,3 @@ def mostrar_curva_risco(carteira, protecao_pct, saldo):
     else:
         nivel = "🔴 Alto"
     st.markdown(f"**Nível de risco:** {nivel}")
-
-def atualizar_dados_mercado():
-    import time
-    time.sleep(1)
