@@ -1,10 +1,13 @@
 
-# Painel Alpha WIN – Estratégia Inteligente Davi Maciel
+# Alpha WIN v4.0 – Estratégia Inteligente
 
-Este painel simula estratégias de hedge e oportunidade com opções e mini índice WIN/IBOV11 com controle de saldo e risco.
+Inclui:
+- Hedge com venda de WIN ou PUT
+- Estratégia do Pózinho
+- Payoff visual
+- Curva de risco
+- Web scraping com cache de 10 min
 
-## Rodar localmente
-```
+## Rodar local:
 pip install -r requirements.txt
 streamlit run app.py
-```
