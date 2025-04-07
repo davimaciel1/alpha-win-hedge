@@ -1,7 +1,7 @@
 
 # Painel Alpha WIN – Estratégia Inteligente Davi Maciel
 
-Este painel simula estratégias automáticas de hedge e geração de lucro no mini índice WIN com base no cenário de mercado.
+Este painel simula estratégias de hedge e oportunidade com opções e mini índice WIN/IBOV11 com controle de saldo e risco.
 
 ## Rodar localmente
 ```
