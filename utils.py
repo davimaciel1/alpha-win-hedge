@@ -2,6 +2,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def obter_preco_pozinho_real():
+    # Esta função pode ser expandida para buscar de opcoes.net.br ou advfn.com.br
+    # Aqui usamos um placeholder para simulação
+    return 1.23  # Exemplo: preço real extraído do site
+
 def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, preco_simulado, usar_stop, stop_pct, usar_pozinho, valor_pozinho):
     perda_proj = carteira * (protecao_pct / 100) * ((preco_atual - preco_simulado) / preco_atual)
 
@@ -34,20 +39,20 @@ def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, p
             explicacao += f"📉 Venda {contratos_win} contrato(s) de WIN usando ações como garantia.\n"
 
         if usar_pozinho:
-            preco_pozinho = 0.05
-            if preco_pozinho > 0.10:
+            preco_pozinho_real = obter_preco_pozinho_real()
+            if preco_pozinho_real > 0.10:
                 resultado["Pózinho"] = "Nenhum viável (acima de R$ 0,10)"
                 explicacao += "❌ Nenhuma opção de pózinho com preço até R$ 0,10 e liquidez disponível.\n"
             else:
-                qtd_pozinho = int((valor_pozinho * 100) // (preco_pozinho * 100))
+                qtd_pozinho = int((valor_pozinho * 100) // (preco_pozinho_real * 100))
                 lucro_pozinho = max(0, 125000 - preco_simulado)
                 retorno_potencial = qtd_pozinho * lucro_pozinho
 
                 resultado.update({
-                    "Pózinho": f"{qtd_pozinho}x IBOVP125 a R$ {preco_pozinho:.2f}",
+                    "Pózinho": f"{qtd_pozinho}x IBOVP125 a R$ {preco_pozinho_real:.2f}",
                     "Retorno potencial": f"R$ {retorno_potencial:.2f} (se cair até 125.000)"
                 })
-                explicacao += f"💣 Pózinho de proteção: {qtd_pozinho} contratos IBOVP125 a R$ {preco_pozinho:.2f}. Se índice cair até 125k, pode virar R$ {retorno_potencial:.2f}\n"
+                explicacao += f"💣 Pózinho de proteção: {qtd_pozinho} contratos IBOVP125 a R$ {preco_pozinho_real:.2f}. Se índice cair até 125k, pode virar R$ {retorno_potencial:.2f}\n"
     else:
         resultado.update({
             "CALL sugerida": "IBOVC134",

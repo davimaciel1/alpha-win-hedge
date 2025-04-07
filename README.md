@@ -1,1 +1,1 @@
-Painel Alpha WIN v4.2 – Hedge com opções reais, cálculo de pózinho com preço correto, textos claros, payoff, risco e atualizações automáticas.
+Painel Alpha WIN v4.3 – Versão com scraping real do pózinho e exibição da versão do painel no topo.
