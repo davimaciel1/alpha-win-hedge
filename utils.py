@@ -3,9 +3,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 def obter_preco_pozinho_real():
-    # Esta função pode ser expandida para buscar de opcoes.net.br ou advfn.com.br
-    # Aqui usamos um placeholder para simulação
-    return 1.23  # Exemplo: preço real extraído do site
+    return 1.23  # Simulação
+
+def listar_pozinhos_baratos():
+    # Simulação de tabela com opções
+    dados = {
+        "Ticker": ["IBOVP122", "IBOVP123", "IBOVP124", "IBOVP125", "IBOVP126"],
+        "Preço": [0.25, 0.32, 0.38, 0.41, 0.45],
+        "Strike": [122000, 123000, 124000, 125000, 126000],
+        "Volume": [4500, 3800, 2700, 2200, 1900]
+    }
+    return pd.DataFrame(dados)
 
 def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, preco_simulado, usar_stop, stop_pct, usar_pozinho, valor_pozinho):
     perda_proj = carteira * (protecao_pct / 100) * ((preco_atual - preco_simulado) / preco_atual)
@@ -52,7 +60,7 @@ def recomendar_estrategia(cenario, carteira, protecao_pct, saldo, preco_atual, p
                     "Pózinho": f"{qtd_pozinho}x IBOVP125 a R$ {preco_pozinho_real:.2f}",
                     "Retorno potencial": f"R$ {retorno_potencial:.2f} (se cair até 125.000)"
                 })
-                explicacao += f"💣 Pózinho de proteção: {qtd_pozinho} contratos IBOVP125 a R$ {preco_pozinho_real:.2f}. Se índice cair até 125k, pode virar R$ {retorno_potencial:.2f}\n"
+                explicacao += f"💣 Pózinho: {qtd_pozinho}x IBOVP125 a R$ {preco_pozinho_real:.2f}. Se índice cair até 125k, pode virar R$ {retorno_potencial:.2f}\n"
     else:
         resultado.update({
             "CALL sugerida": "IBOVC134",

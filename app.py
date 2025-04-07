@@ -4,12 +4,13 @@ from utils import (
     recomendar_estrategia,
     gerar_grafico_payoff,
     mostrar_curva_risco,
-    atualizar_dados_mercado
+    atualizar_dados_mercado,
+    listar_pozinhos_baratos
 )
 
-st.set_page_config(page_title="Alpha WIN v4.3 – Painel Inteligente", layout="wide")
+st.set_page_config(page_title="Alpha WIN v4.4 – Painel Inteligente", layout="wide")
 st.title("📊 Painel Alpha WIN – Estratégia Inteligente")
-st.caption("🔧 Versão: Alpha WIN v4.3 – Atualizado em 07/04/2025")
+st.caption("🔧 Versão: Alpha WIN v4.4 – Atualizado em 07/04/2025")
 
 with st.sidebar:
     st.header("⚙️ Configurações")
@@ -37,6 +38,10 @@ if st.button("🚀 Calcular Estratégia"):
     st.write("### 💡 Estratégia Recomendada:")
     st.dataframe(resultado)
     st.info(explicacao)
+
+    if "Nenhuma opção de pózinho" in explicacao:
+        st.warning("Nenhum pózinho viável encontrado. Veja os 5 mais baratos com liquidez:")
+        st.dataframe(listar_pozinhos_baratos())
 
     st.write("### 📈 Gráfico de Payoff")
     fig = gerar_grafico_payoff(preco_atual, preco_simulado)

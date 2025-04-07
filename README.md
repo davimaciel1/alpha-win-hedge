@@ -1,1 +1,1 @@
-Painel Alpha WIN v4.3 – Versão com scraping real do pózinho e exibição da versão do painel no topo.
+Painel Alpha WIN v4.4 – Exibe os 5 pózinhos mais baratos com liquidez quando nenhum viável for encontrado.
